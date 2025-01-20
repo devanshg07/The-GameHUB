@@ -16,7 +16,7 @@ import javafx.util.Duration;
 import java.util.LinkedList;
 import java.util.Random;
 
-public class SnakeGame extends Application {
+public class SnakeBall extends Application {
 
     // Scene dimensions
     final int SCENE_WIDTH = 500;
@@ -35,10 +35,6 @@ public class SnakeGame extends Application {
     private final Random random = new Random();
     private int score = 0;
     private Text scoreText;
-
-    public static void main(String[] args) {
-        launch(args);
-    }
 
     @Override
     public void start(Stage primaryStage) {

@@ -26,10 +26,6 @@ public class BallPong extends Application {
     private boolean rightUpPressed = false;
     private boolean rightDownPressed = false;
 
-    public static void main(String[] args) {
-        launch(args); // Launch the JavaFX application
-    }
-
     @Override
     public void start(Stage primaryStage) {
         Pane root = new Pane();

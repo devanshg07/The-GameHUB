@@ -4,8 +4,9 @@ import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.Button;
 import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
@@ -15,7 +16,7 @@ import javafx.util.Duration;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class FlappyBirdSimulator extends Application {
+public class FlappyBall extends Application {
     // Fixed initial scene size
     final int SCENE_WIDTH = 500;
     final int SCENE_HEIGHT = 400;
@@ -43,10 +44,6 @@ public class FlappyBirdSimulator extends Application {
     Timeline gameLoop;
     Timeline placePipeTimer;
 
-    public static void main(String[] args) {
-        launch(args);
-    }
-
     @Override
     public void start(Stage primaryStage) {
         Canvas canvas = new Canvas(SCENE_WIDTH, SCENE_HEIGHT);
@@ -69,7 +66,7 @@ public class FlappyBirdSimulator extends Application {
 
         // Handle user input for jump or restarting the game
         canvas.setOnKeyPressed(e -> {
-            if (e.getCode() == KeyCode.SPACE) {
+            if (e.getCode() == KeyCode.UP || e.getCode() == KeyCode.SPACE) {
                 if (gameOver) {
                     resetGame();
                     gameLoop.play();
@@ -80,14 +77,27 @@ public class FlappyBirdSimulator extends Application {
             }
         });
 
-        // Set up the scene and stage
+        // Handle mouse click event for jumping
+        canvas.setOnMousePressed(this::handleMouseClick);
+
+        // Create Exit button
+        Button exitButton = new Button("Exit");
+        exitButton.setOnAction(e -> System.exit(0));
+
+        // Set up the layout with StackPane (to allow overlapping)
         StackPane root = new StackPane();
         root.getChildren().add(canvas);
+        root.getChildren().add(exitButton);
 
-        Scene scene = new Scene(root);
+        // Set Exit button position to bottom left
+        StackPane.setAlignment(exitButton, javafx.geometry.Pos.BOTTOM_LEFT);
+        exitButton.setStyle("-fx-padding: 10;");
+
+        // Setup Scene
+        Scene scene = new Scene(root, SCENE_WIDTH, SCENE_HEIGHT);
         scene.setOnKeyPressed(this::handleKeyPress);
 
-        primaryStage.setTitle("Flappy Bird Simulator");
+        primaryStage.setTitle("Flappy Ball Game");
         primaryStage.setScene(scene);
         primaryStage.show();
 
@@ -162,19 +172,19 @@ public class FlappyBirdSimulator extends Application {
             gc.fillRect(pipe.x, pipe.y, pipe.width, pipe.height);
         }
 
-        // Score
+        // Score (Top-right corner)
         gc.setFill(Color.WHITE);
         gc.setFont(new Font("Arial", 32));
         if (gameOver) {
-            gc.fillText("Game Over: " + (int) score, 10, 35);
+            gc.fillText("Game Over: " + (((int) score) / 32), SCENE_WIDTH - 200, 35);
         } else {
-            gc.fillText(String.valueOf((int) score), 10, 35);
+            gc.fillText("Score: " + (((int) score) / 32), SCENE_WIDTH - 200, 35);
         }
     }
 
     // Handle key events for jumping
-    private void handleKeyPress(KeyEvent e) {
-        if (e.getCode() == KeyCode.SPACE) {
+    private void handleKeyPress(javafx.scene.input.KeyEvent e) {
+        if (e.getCode() == KeyCode.UP || e.getCode() == KeyCode.SPACE) {
             if (!gameOver) {
                 velocityY = -12; // Jump
             } else {
@@ -182,6 +192,17 @@ public class FlappyBirdSimulator extends Application {
                 gameLoop.play();
                 placePipeTimer.play();
             }
+        }
+    }
+
+    // Handle mouse click event for jumping
+    private void handleMouseClick(MouseEvent e) {
+        if (!gameOver) {
+            velocityY = -12; // Jump on mouse click
+        } else {
+            resetGame();
+            gameLoop.play();
+            placePipeTimer.play();
         }
     }
 
