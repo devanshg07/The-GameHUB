@@ -74,11 +74,10 @@ public class GameHub {
         });
 
         flappyBallButton.setOnAction(e -> {
-            FlappyBall game = new FlappyBall(); // Create an instance of the BallPong game
-            game.start(new Stage()); // Start the BallPong game in a new stage
-            primaryStage.hide(); // Hide the game hub window
-        });
-
+        FlappyBall game = new FlappyBall(primaryStage, primaryStage.getScene());
+        game.start(new Stage());
+        primaryStage.hide();
+    });
         snakeBallButton.setOnAction(e -> {
             SnakeBall game = new SnakeBall(); // Create an instance of the BallPong game
             game.start(new Stage()); // Start the BallPong game in a new stage

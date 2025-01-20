@@ -40,7 +40,7 @@ public class SnakeBall extends Application {
     public void start(Stage primaryStage) {
         Pane root = new Pane();
         root.setPrefSize(SCENE_WIDTH, SCENE_HEIGHT + 40); // Adjusted for the score panel
-        root.setStyle("-fx-background-color: yellow;");
+        root.setStyle("-fx-background-color: #FFD700; -fx-font-size: 16px;");
 
         // Draw grid
         for (int i = 0; i <= WIDTH; i++) {
