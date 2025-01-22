@@ -7,8 +7,6 @@ import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
-import javafx.scene.paint.LinearGradient;
-import javafx.scene.paint.Stop;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.scene.control.Button;
@@ -42,9 +40,6 @@ public class CatchyBalls extends Application {
 
         balls.add(new BlueBall(200, 200, 5, 5, ballCircle));
 
-        LinearGradient gradient = new LinearGradient(0, 0, 1, 1, true, javafx.scene.paint.CycleMethod.NO_CYCLE,
-                new Stop(0, Color.ORANGE), new Stop(1, Color.PURPLE));
-
         Circle bouncingCircle = new Circle(SCENE_WIDTH / 2, SCENE_HEIGHT / 2, circleRadius);
         bouncingCircle.setFill(Color.TRANSPARENT);
         bouncingCircle.setStroke(Color.BLACK);
@@ -68,7 +63,10 @@ public class CatchyBalls extends Application {
         exitButton.setOnAction(e -> javafx.application.Platform.exit());
 
         root = new Group(bouncingCircle, ballCircle, ballsMissedText, scoreText, startButton, exitButton);
-        Scene scene = new Scene(root, SCENE_WIDTH, SCENE_HEIGHT, gradient);
+
+        // Set solid background color to #FF6347 (tomato red)
+        Color solidBackgroundColor = Color.web("#FF6347");
+        Scene scene = new Scene(root, SCENE_WIDTH, SCENE_HEIGHT, solidBackgroundColor);
 
         scene.setOnMouseClicked(e -> {
             for (int i = balls.size() - 1; i >= 0; i--) {
