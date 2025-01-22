@@ -3,16 +3,16 @@ import javafx.animation.Timeline;
 import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.scene.Scene;
-import javafx.scene.paint.Color;
-import javafx.scene.paint.LinearGradient;
-import javafx.scene.paint.Stop;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.text.Text;
+import javafx.scene.paint.Color;
+import javafx.scene.paint.LinearGradient;
+import javafx.scene.paint.Stop;
 import javafx.scene.text.Font;
-import javafx.scene.shape.Circle;
+import javafx.scene.text.Text;
 import javafx.scene.control.Button;
+import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
@@ -24,7 +24,7 @@ public class CatchyBalls extends Application {
     final int SCENE_WIDTH = 500;
     final int SCENE_HEIGHT = 400;
     final double circleRadius = 150;
-    final ArrayList<Balls> balls = new ArrayList<>();
+    final ArrayList<Balls> balls = new ArrayList<Balls>();
     int ballsMissedCount = 0;
     int score = 0;
     Random random = new Random();
@@ -32,28 +32,14 @@ public class CatchyBalls extends Application {
     Group root;
     SoundManager soundManager = new SoundManager();
 
-    private Stage mainStage;
-    private Scene hubScene;
-
-    public CatchyBalls() {}
-
-    public CatchyBalls(Stage mainStage, Scene hubScene) {
-        this.mainStage = mainStage;
-        this.hubScene = hubScene;
-    }
-    
-
     @Override
     public void start(Stage primaryStage) {
-        if (mainStage == null) {
-            mainStage = primaryStage;
-        }
-
         Circle ballCircle = new Circle(200, 200, ballRadius, Color.BLUE);
         DropShadow shadow = new DropShadow();
         shadow.setOffsetX(3);
         shadow.setOffsetY(3);
         ballCircle.setEffect(shadow);
+
         balls.add(new BlueBall(200, 200, 5, 5, ballCircle));
 
         LinearGradient gradient = new LinearGradient(0, 0, 1, 1, true, javafx.scene.paint.CycleMethod.NO_CYCLE,
@@ -63,11 +49,11 @@ public class CatchyBalls extends Application {
         bouncingCircle.setFill(Color.TRANSPARENT);
         bouncingCircle.setStroke(Color.BLACK);
 
-        Text ballsMissedText = new Text(10, SCENE_HEIGHT - 10, "Balls Missed: " + ballsMissedCount);
+        Text ballsMissedText = new Text(SCENE_WIDTH - 150, SCENE_HEIGHT - 10, "Balls Missed: " + ballsMissedCount);
         ballsMissedText.setFill(Color.WHITE);
         ballsMissedText.setFont(Font.font("Times New Roman", 20));
 
-        Text scoreText = new Text(SCENE_WIDTH - 120, SCENE_HEIGHT - 10, "Score: " + score);
+        Text scoreText = new Text(SCENE_WIDTH - 120, 30, "Score: " + score);
         scoreText.setFill(Color.WHITE);
         scoreText.setFont(Font.font("Times New Roman", 20));
 
@@ -76,16 +62,12 @@ public class CatchyBalls extends Application {
         startButton.setLayoutY(10);
         startButton.setOnAction(e -> timeline.play());
 
-        Button backButton = new Button("Back");
-        backButton.setLayoutX(SCENE_WIDTH - 70);
-        backButton.setLayoutY(10);
-        backButton.setOnAction(e -> {
-            timeline.stop();  // Stop the game loop
-            mainStage.setScene(hubScene);  // Set the scene back to the Game Hub
-        });
-                
+        Button exitButton = new Button("Exit");
+        exitButton.setLayoutX(10);
+        exitButton.setLayoutY(SCENE_HEIGHT - 40); // Move Exit button to the bottom-left
+        exitButton.setOnAction(e -> javafx.application.Platform.exit());
 
-        root = new Group(bouncingCircle, ballCircle, ballsMissedText, scoreText, startButton, backButton);
+        root = new Group(bouncingCircle, ballCircle, ballsMissedText, scoreText, startButton, exitButton);
         Scene scene = new Scene(root, SCENE_WIDTH, SCENE_HEIGHT, gradient);
 
         scene.setOnMouseClicked(e -> {
@@ -147,10 +129,10 @@ public class CatchyBalls extends Application {
 
         timeline.setCycleCount(Timeline.INDEFINITE);
 
-        mainStage.setTitle("Bouncing Ball");
-        mainStage.setScene(scene);
-        mainStage.setResizable(false);
-        mainStage.show();
+        primaryStage.setTitle("Bouncing Ball");
+        primaryStage.setScene(scene);
+        primaryStage.setResizable(false);
+        primaryStage.show();
     }
 
     public double randomSpeed() {
