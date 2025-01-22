@@ -74,8 +74,12 @@ public class GameHub {
         });
 
         flappyBallButton.setOnAction(e -> {
-            FlappyBall game = new FlappyBall(primaryStage, primaryStage.getScene());
-            game.start(new Stage());
+            // Create a new instance of the FlappyBall game
+            FlappyBall game = new FlappyBall();
+            // Start the game in a new window (Stage)
+            Stage gameStage = new Stage();
+            game.start(gameStage);
+            // Hide the main menu
             primaryStage.hide();
         });
 

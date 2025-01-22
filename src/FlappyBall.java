@@ -7,9 +7,8 @@ import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
-import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.*;
+import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
@@ -41,14 +40,6 @@ public class FlappyBall extends Application {
     Timeline gameLoop;
     Timeline placePipeTimer;
 
-    private Stage primaryStage;
-    private Scene gameHubScene;
-
-    public FlappyBall(Stage primaryStage, Scene gameHubScene) {
-        this.primaryStage = primaryStage;
-        this.gameHubScene = gameHubScene;
-    }
-
     @Override
     public void start(Stage primaryStage) {
         Canvas canvas = new Canvas(SCENE_WIDTH, SCENE_HEIGHT);
@@ -66,18 +57,6 @@ public class FlappyBall extends Application {
         placePipeTimer.setCycleCount(Timeline.INDEFINITE);
         placePipeTimer.play();
 
-        canvas.setOnKeyPressed(e -> {
-            if (e.getCode() == KeyCode.UP || e.getCode() == KeyCode.SPACE) {
-                if (gameOver) {
-                    resetGame();
-                    gameLoop.play();
-                    placePipeTimer.play();
-                } else {
-                    velocityY = -12;
-                }
-            }
-        });
-
         canvas.setOnMousePressed(this::handleMouseClick);
 
         // Exit Button
@@ -92,7 +71,6 @@ public class FlappyBall extends Application {
         root.getChildren().addAll(canvas, exitButton);
 
         Scene scene = new Scene(root, SCENE_WIDTH, SCENE_HEIGHT);
-        scene.setOnKeyPressed(this::handleKeyPress);
 
         primaryStage.setTitle("Flappy Ball Game");
         primaryStage.setScene(scene);
@@ -163,18 +141,6 @@ public class FlappyBall extends Application {
             gc.fillText("Game Over", SCENE_WIDTH / 2.0 - 100, SCENE_HEIGHT / 2.0);
         } else {
             gc.fillText("Score: " + (((int) score) / 32), SCENE_WIDTH - 150, 35);
-        }
-    }
-
-    private void handleKeyPress(javafx.scene.input.KeyEvent e) {
-        if (e.getCode() == KeyCode.UP || e.getCode() == KeyCode.SPACE) {
-            if (!gameOver) {
-                velocityY = -12;
-            } else {
-                resetGame();
-                gameLoop.play();
-                placePipeTimer.play();
-            }
         }
     }
 
