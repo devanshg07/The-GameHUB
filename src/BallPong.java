@@ -21,10 +21,12 @@ public class BallPong extends Application {
     private double paddleSpeed = 10; // Increased paddle speed for smoother control
 
     private double rightPaddleSpeed = 10; // Right paddle speed
-    private double leftPaddleSpeed = 10; // Left paddle speed (same as right paddle speed for mouse control)
+    private double leftPaddleSpeed = 10; // Left paddle speed
 
     private boolean rightUpPressed = false;
     private boolean rightDownPressed = false;
+    private boolean leftUpPressed = false;
+    private boolean leftDownPressed = false;
 
     @Override
     public void start(Stage primaryStage) {
@@ -112,10 +114,17 @@ public class BallPong extends Application {
                 if (rightDownPressed) {
                     rightPaddle.setY(rightPaddle.getY() + rightPaddleSpeed);
                 }
+
+                if (leftUpPressed) {
+                    leftPaddle.setY(leftPaddle.getY() - leftPaddleSpeed);
+                }
+                if (leftDownPressed) {
+                    leftPaddle.setY(leftPaddle.getY() + leftPaddleSpeed);
+                }
             }
         };
 
-        // Paddle movement logic (keyboard controls for right paddle, mouse for left paddle)
+        // Paddle movement logic (keyboard controls for left paddle using W/S, right paddle using arrows)
         Scene scene = new Scene(root, SCENE_WIDTH, SCENE_HEIGHT);
 
         // Right paddle control: Faster movement (keyboard)
@@ -124,6 +133,10 @@ public class BallPong extends Application {
                 rightUpPressed = true;
             } else if (event.getCode() == KeyCode.DOWN) {
                 rightDownPressed = true;
+            } else if (event.getCode() == KeyCode.W) {
+                leftUpPressed = true;
+            } else if (event.getCode() == KeyCode.S) {
+                leftDownPressed = true;
             }
         });
 
@@ -132,15 +145,10 @@ public class BallPong extends Application {
                 rightUpPressed = false;
             } else if (event.getCode() == KeyCode.DOWN) {
                 rightDownPressed = false;
-            }
-        });
-
-        // Left paddle control with the mouse
-        scene.setOnMouseMoved(event -> {
-            double mouseY = event.getY();
-            // Keep the left paddle within the window and center it on the mouse position
-            if (mouseY > 0 && mouseY < SCENE_HEIGHT - leftPaddle.getHeight()) {
-                leftPaddle.setY(mouseY - leftPaddle.getHeight() / 2);
+            } else if (event.getCode() == KeyCode.W) {
+                leftUpPressed = false;
+            } else if (event.getCode() == KeyCode.S) {
+                leftDownPressed = false;
             }
         });
 
