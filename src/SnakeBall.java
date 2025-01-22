@@ -70,7 +70,7 @@ public class SnakeBall extends Application {
         // Add score counter
         scoreText = new Text("Score: 0");
         scoreText.setFill(Color.BLACK);
-        scoreText.setStyle("-fx-font-family: 'Times New Roman'; -fx-font-size: 32px;"); // Updated font and size
+        scoreText.setStyle("-fx-font-family: 'Times New Roman'; -fx-font-size: 32px;");
         scoreText.setX(SCENE_WIDTH - 150);
         scoreText.setY(40);
         root.getChildren().add(scoreText);
@@ -78,6 +78,8 @@ public class SnakeBall extends Application {
         Scene scene = new Scene(root);
         scene.setOnKeyPressed(event -> {
             KeyCode code = event.getCode();
+
+            // Only process W, A, S, D keys for movement, ignore arrow keys and other keys
             if (code == KeyCode.W && direction != Direction.DOWN) {
                 direction = Direction.UP;
             } else if (code == KeyCode.S && direction != Direction.UP) {
@@ -88,6 +90,7 @@ public class SnakeBall extends Application {
                 direction = Direction.RIGHT;
             }
 
+            // Start the game if it's not already running
             if (!running) {
                 running = true;
             }
@@ -108,6 +111,7 @@ public class SnakeBall extends Application {
         double newX = head.getX();
         double newY = head.getY();
 
+        // Move the snake in the current direction
         switch (direction) {
             case UP:
                 newY -= TILE_SIZE;
@@ -123,11 +127,13 @@ public class SnakeBall extends Application {
                 break;
         }
 
+        // Check for collisions with walls or self
         if (checkCollision(newX, newY)) {
             running = false;
             return;
         }
 
+        // Create a new head for the snake
         Rectangle newHead = new Rectangle(TILE_SIZE, TILE_SIZE);
         newHead.setFill(Color.BLUE);
         newHead.setX(newX);
@@ -135,11 +141,13 @@ public class SnakeBall extends Application {
         snake.addFirst(newHead);
         root.getChildren().add(newHead);
 
+        // Check if the snake eats the apple
         if (newX == apple.getCenterX() - TILE_SIZE / 2 && newY == apple.getCenterY() - TILE_SIZE / 2) {
             score++;
             scoreText.setText("Score: " + score);
             placeApple(root);
         } else {
+            // Remove the snake's tail
             Rectangle tail = snake.removeLast();
             root.getChildren().remove(tail);
         }
@@ -166,10 +174,12 @@ public class SnakeBall extends Application {
     }
 
     private boolean checkCollision(double x, double y) {
+        // Check if the snake hits the wall
         if (x < 0 || x >= SCENE_WIDTH || y < 0 || y >= SCENE_HEIGHT) {
             return true;
         }
 
+        // Check if the snake hits itself
         for (Rectangle part : snake) {
             if (part.getX() == x && part.getY() == y) {
                 return true;
