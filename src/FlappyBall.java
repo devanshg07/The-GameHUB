@@ -26,7 +26,7 @@ public class FlappyBall extends Application {
     int ballY;
     int ballWidth = 30;
     int ballHeight = 30;
-    Color ballColor = Color.BLACK;
+    Color ballColor = Color.RED;
 
     int pipeWidth = 50;
     int pipeGap = 120;
@@ -80,26 +80,16 @@ public class FlappyBall extends Application {
 
         canvas.setOnMousePressed(this::handleMouseClick);
 
-        // Back Button
-        Button backButton = new Button("Back");
-        backButton.setOnAction(e -> {
-            gameLoop.stop();
-            placePipeTimer.stop();
-            primaryStage.setScene(gameHubScene);
-        });
-
         // Exit Button
         Button exitButton = new Button("Exit");
         exitButton.setOnAction(e -> System.exit(0));
 
-        // Button Layout
-        VBox buttonLayout = new VBox(10, backButton, exitButton);
-        buttonLayout.setAlignment(Pos.TOP_LEFT);
-        buttonLayout.setPadding(new Insets(10));
+        StackPane.setAlignment(exitButton, Pos.BOTTOM_LEFT);
+        StackPane.setMargin(exitButton, new Insets(10));
 
         // StackPane for layering the canvas and buttons
         StackPane root = new StackPane();
-        root.getChildren().addAll(canvas, buttonLayout);
+        root.getChildren().addAll(canvas, exitButton);
 
         Scene scene = new Scene(root, SCENE_WIDTH, SCENE_HEIGHT);
         scene.setOnKeyPressed(this::handleKeyPress);
@@ -156,23 +146,23 @@ public class FlappyBall extends Application {
     }
 
     public void draw(GraphicsContext gc) {
-        gc.setFill(Color.CYAN);
+        gc.setFill(Color.web("#1E90FF"));
         gc.fillRect(0, 0, SCENE_WIDTH, SCENE_HEIGHT);
 
         gc.setFill(ballColor);
         gc.fillOval(ballX, ballY, ballWidth, ballHeight);
 
-        gc.setFill(Color.GREEN);
+        gc.setFill(Color.ORANGE);
         for (Rectangle pipe : pipes) {
             gc.fillRect(pipe.x, pipe.y, pipe.width, pipe.height);
         }
 
         gc.setFill(Color.WHITE);
-        gc.setFont(new Font("Arial", 32));
+        gc.setFont(new Font("Times New Roman", 32));
         if (gameOver) {
             gc.fillText("Game Over", SCENE_WIDTH / 2.0 - 100, SCENE_HEIGHT / 2.0);
         } else {
-            gc.fillText("Score: " + (((int) score) / 32), 10, 35);
+            gc.fillText("Score: " + (((int) score) / 32), SCENE_WIDTH - 150, 35);
         }
     }
 
