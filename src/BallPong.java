@@ -29,7 +29,7 @@ public class BallPong extends Application {
     @Override
     public void start(Stage primaryStage) {
         Pane root = new Pane();
-        root.setStyle("-fx-background-color: red;");  // Set background to red
+        root.setStyle("-fx-background-color: #32CD32;");  // Set background to Lime Green (#32CD32)
 
         // Setup Pong game components (paddles, ball, etc.)
         Rectangle leftPaddle = new Rectangle(15, 100, Color.BLACK);  // Left paddle color set to black
