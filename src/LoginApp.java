@@ -38,15 +38,17 @@ public class LoginApp extends Application {
     private Scene createLoginScene(Stage primaryStage) {
         // Title Label
         Label titleLabel = new Label("The GameHUB");
-        titleLabel.setStyle("-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: black;");
+        titleLabel.setStyle("-fx-font-family: 'Times New Roman'; -fx-font-size: 32px; -fx-font-weight: bold; -fx-text-fill: black;");
         titleLabel.setAlignment(Pos.CENTER);
 
         // Username and Password fields
         Label labelUsername = new Label("Username:");
+        labelUsername.setStyle("-fx-font-family: 'Times New Roman'; -fx-font-size: 32px;");
         TextField usernameField = new TextField();
         usernameField.setMaxWidth(SCENE_WIDTH * 0.5);
 
         Label labelPassword = new Label("Password:");
+        labelPassword.setStyle("-fx-font-family: 'Times New Roman'; -fx-font-size: 32px;");
         PasswordField passwordField = new PasswordField();
         passwordField.setMaxWidth(SCENE_WIDTH * 0.5);
 
@@ -54,6 +56,7 @@ public class LoginApp extends Application {
         Button resetButton = new Button("Reset");
 
         Label errorLabel = new Label();
+        errorLabel.setStyle("-fx-font-family: 'Times New Roman'; -fx-font-size: 32px; -fx-text-fill: red;");
 
         // Button action for login validation
         loginButton.setOnAction(e -> {
@@ -71,7 +74,6 @@ public class LoginApp extends Application {
                 soundManager.playSuccessSound(); // Play success sound
             } else {
                 errorLabel.setText("Invalid password. Please try again.");
-                errorLabel.setStyle("-fx-text-fill: red;");
                 soundManager.playFailureSound(); // Play failure sound
             }
         });
@@ -108,7 +110,7 @@ public class LoginApp extends Application {
         // Adding Exit Button
         StackPane stackPane = new StackPane();
 
-        // Exit Button
+        // Exit Button with default size
         Button exitButton = new Button("Exit");
         exitButton.setOnAction(e -> primaryStage.close());
         StackPane.setAlignment(exitButton, Pos.BOTTOM_LEFT);

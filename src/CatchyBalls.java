@@ -44,13 +44,14 @@ public class CatchyBalls extends Application {
         bouncingCircle.setFill(Color.TRANSPARENT);
         bouncingCircle.setStroke(Color.BLACK);
 
-        Text ballsMissedText = new Text(SCENE_WIDTH - 150, SCENE_HEIGHT - 10, "Balls Missed: " + ballsMissedCount);
+        // Updated font size to 32 and re-aligned text
+        Text ballsMissedText = new Text(SCENE_WIDTH - 220, SCENE_HEIGHT - 40, "Balls Missed: " + ballsMissedCount);
         ballsMissedText.setFill(Color.WHITE);
-        ballsMissedText.setFont(Font.font("Times New Roman", 20));
+        ballsMissedText.setFont(Font.font("Times New Roman", 32));
 
-        Text scoreText = new Text(SCENE_WIDTH - 120, 30, "Score: " + score);
+        Text scoreText = new Text(SCENE_WIDTH - 160, 40, "Score: " + score);
         scoreText.setFill(Color.WHITE);
-        scoreText.setFont(Font.font("Times New Roman", 20));
+        scoreText.setFont(Font.font("Times New Roman", 32));
 
         Button startButton = new Button("Start");
         startButton.setLayoutX(10);
