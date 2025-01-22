@@ -1,128 +1,138 @@
-import javafx.application.Application;
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
-import javafx.scene.Scene;
-import javafx.scene.control.*;
-import javafx.scene.layout.*;
-import javafx.scene.paint.*;
-import javafx.stage.Stage;
+/*Devansh Goyal
+ * LoginApp.java
+ * This is the maain class of the gamehub project, and directs the user to be logged in to play videogames! */
 
-public class LoginApp extends Application {
+ //import javafx libraries
+import javafx.application.Application;//import application libarires
+import javafx.geometry.Insets;//import insets
+import javafx.geometry.Pos;//import geomertical postions
+import javafx.scene.Scene;//import scenes
+import javafx.scene.control.*;//import scene control
+import javafx.scene.layout.*;////import scene layout
+import javafx.scene.paint.*;//import paint
+import javafx.stage.Stage;//import stage
 
-    private String userPassword = ""; // Password for validation
-    private Boolean passwordIsCorrect = false;
-    final int SCENE_WIDTH = 500;
-    final int SCENE_HEIGHT = 400;
+public class LoginApp extends Application {//start the class
 
-    private SoundManager soundManager = new SoundManager(); // Instantiate SoundManager
+    private String userPassword = "12345"; //password for entry
+    private Boolean passwordIsCorrect = false;//by deafult
+    final int SCENE_WIDTH = 500;//dimensions are set
+    final int SCENE_HEIGHT = 400;//dimensions are set
 
-    public static void main(String[] args) {
+    private SoundManager soundManager = new SoundManager(); //create object of SoundManager class
+
+    public static void main(String[] args) {//start main
         launch(args);
-    }
+    }//end main
 
     @Override
-    public void start(Stage primaryStage) {
-        // Start playing background music
-        soundManager.playBackgroundMusic("kahoot.wav");
+    public void start(Stage primaryStage) {//start the start method
+        
+        soundManager.playBackgroundMusic("kahoot.wav");//play the kahoot music for intensity
 
-        // Create the login UI
+        //set up the login interface
         Scene loginScene = createLoginScene(primaryStage);
-        primaryStage.setResizable(false);
+        primaryStage.setResizable(false);//make it not resizable
+        primaryStage.setTitle("Login System");//title is login stystenm
+        primaryStage.setScene(loginScene);//set the scene to the login scene
+        primaryStage.show();//show the scene
+    }//end strat method
 
-        // Scene and stage setup
-        primaryStage.setTitle("Login System");
-        primaryStage.setScene(loginScene);
-        primaryStage.show();
-    }
+    //create login scence method
+    private Scene createLoginScene(Stage primaryStage) {//start method
+        Label titleLabel = new Label("The GameHUB");//label object called the gamehubv
+        titleLabel.setStyle("-fx-font-family: 'Times New Roman'; -fx-font-size: 32px; -fx-font-weight: bold; -fx-text-fill: black;");//modify it
+        titleLabel.setAlignment(Pos.CENTER);//add it to the center
 
-    private Scene createLoginScene(Stage primaryStage) {
-        // Title Label
-        Label titleLabel = new Label("The GameHUB");
-        titleLabel.setStyle("-fx-font-family: 'Times New Roman'; -fx-font-size: 32px; -fx-font-weight: bold; -fx-text-fill: black;");
-        titleLabel.setAlignment(Pos.CENTER);
+        //places of input user and password
+        Label labelUsername = new Label("Username:");//create a label of username
+        labelUsername.setStyle("-fx-font-family: 'Times New Roman'; -fx-font-size: 32px;");//style it same
+        TextField usernameField = new TextField();///add a place of input
+        usernameField.setMaxWidth(SCENE_WIDTH * 0.5);//set the max width
 
-        // Username and Password fields
-        Label labelUsername = new Label("Username:");
-        labelUsername.setStyle("-fx-font-family: 'Times New Roman'; -fx-font-size: 32px;");
-        TextField usernameField = new TextField();
-        usernameField.setMaxWidth(SCENE_WIDTH * 0.5);
+        Label labelPassword = new Label("Password:");//label of password
+        labelPassword.setStyle("-fx-font-family: 'Times New Roman'; -fx-font-size: 32px;");//style it same
+        PasswordField passwordField = new PasswordField();//app a place of input
+        passwordField.setMaxWidth(SCENE_WIDTH * 0.5);//max width of the password
 
-        Label labelPassword = new Label("Password:");
-        labelPassword.setStyle("-fx-font-family: 'Times New Roman'; -fx-font-size: 32px;");
-        PasswordField passwordField = new PasswordField();
-        passwordField.setMaxWidth(SCENE_WIDTH * 0.5);
+        Button loginButton = new Button("Enter");//button for enter
+        Button resetButton = new Button("Reset");//buttopn for reset everything
 
-        Button loginButton = new Button("Enter");
-        Button resetButton = new Button("Reset");
+        Label errorLabel = new Label();//label incase of mistake
+        errorLabel.setStyle("-fx-font-family: 'Times New Roman'; -fx-font-size: 32px; -fx-text-fill: red;");//make it red for show
 
-        Label errorLabel = new Label();
-        errorLabel.setStyle("-fx-font-family: 'Times New Roman'; -fx-font-size: 32px; -fx-text-fill: red;");
-
-        // Button action for login validation
-        loginButton.setOnAction(e -> {
-            passwordIsCorrect = validatePassword(passwordField.getText());
-            if (passwordIsCorrect) {
-                soundManager.stopMusic(); // Stop the kahoot music
+        //if enterd is presses
+        loginButton.setOnAction(e -> {//start it
+            passwordIsCorrect = validatePassword(passwordField.getText());//if the two things match
+            //if the password is right
+            if (passwordIsCorrect) {//start if
+                soundManager.stopMusic(); //Stop kahoot music
                 
-                soundManager.playBackgroundMusic("venture.wav"); // Start new background music
+                soundManager.playBackgroundMusic("venture.wav");//Start new music
                 
-                // Transition to GameHub scene after successful login
-                GameHub gameHub = new GameHub(); // Instantiate GameHub class
-                Scene gameHubScene = gameHub.createGameHubScene(primaryStage);
-                primaryStage.setScene(gameHubScene);
+                // start gamehub scence
+                GameHub gameHub = new GameHub(); //new gamehub object
+                Scene gameHubScene = gameHub.createGameHubScene(primaryStage);//create scene with stage
+                primaryStage.setScene(gameHubScene);//add the scene
 
-                soundManager.playSuccessSound(); // Play success sound
-            } else {
-                errorLabel.setText("Invalid password. Please try again.");
-                soundManager.playFailureSound(); // Play failure sound
-            }
-        });
+                soundManager.playSuccessSound(); // Play laugh sound
+            }//end if
+             else {//start else
+                errorLabel.setText("Invalid password. Please try again.");//if wrong then set value to that
+                soundManager.playFailureSound();//play womp womp
+            }//end else
+        });//end input methosd
 
-        // Reset button action
-        resetButton.setOnAction(e -> {
-            usernameField.clear();
-            passwordField.clear();
-            errorLabel.setText("");
-        });
+        //reset button change
+        resetButton.setOnAction(e -> {//strat it
+            usernameField.clear();//empty it
+            passwordField.clear();//empty it
+            errorLabel.setText("");//make no error label
+        });//end it
 
-        // Create HBoxes for alignment
+        //add hbox to set the username up well
         HBox usernameBox = new HBox(10, labelUsername, usernameField);
-        usernameBox.setAlignment(Pos.CENTER);
+        usernameBox.setAlignment(Pos.CENTER);//in center
 
+        //add hbox to set the password up well
         HBox passwordBox = new HBox(10, labelPassword, passwordField);
-        passwordBox.setAlignment(Pos.CENTER);
+        passwordBox.setAlignment(Pos.CENTER);//in center
 
+        //add hbox to set up buttons well
         HBox buttonBox = new HBox(10, loginButton, resetButton);
-        buttonBox.setAlignment(Pos.CENTER);
+        buttonBox.setAlignment(Pos.CENTER);//in cneter
 
-        VBox layout = new VBox(10);
-        layout.getChildren().addAll(titleLabel, usernameBox, passwordBox, buttonBox, errorLabel);
-        layout.setAlignment(Pos.CENTER);
+        //add hbox to set it up well
+        VBox layout = new VBox(10);//space of 10 pix
+        layout.getChildren().addAll(titleLabel, usernameBox, passwordBox, buttonBox, errorLabel);//add everytgubg
+        layout.setAlignment(Pos.CENTER);//add all to middle
 
+        //create graadietn backgorunf of red yellow and blue
         LinearGradient gradient = new LinearGradient(
                 0, 0, 1, 1, true, CycleMethod.REFLECT,
                 new Stop(0, Color.RED),
                 new Stop(0.5, Color.YELLOW),
                 new Stop(1, Color.BLUE)
-        );
-        layout.setBackground(new Background(new BackgroundFill(gradient, null, null)));
+        );//end color generation
+        layout.setBackground(new Background(new BackgroundFill(gradient, null, null)));//set that gradident as the background
 
-        // Adding Exit Button
+        //add an exit button
         StackPane stackPane = new StackPane();
 
-        // Exit Button with default size
-        Button exitButton = new Button("Exit");
-        exitButton.setOnAction(e -> primaryStage.close());
-        StackPane.setAlignment(exitButton, Pos.BOTTOM_LEFT);
-        StackPane.setMargin(exitButton, new Insets(10));
+        //defualt
+        Button exitButton = new Button("Exit");//exit button
+        exitButton.setOnAction(e -> primaryStage.close());//terminate program
+        StackPane.setAlignment(exitButton, Pos.BOTTOM_LEFT);//place it bottom left
+        StackPane.setMargin(exitButton, new Insets(10));//postiion it
 
         // Add components to StackPane
-        stackPane.getChildren().addAll(layout, exitButton);
+        stackPane.getChildren().addAll(layout, exitButton);//add the layout and exit button to the stackpane
 
-        return new Scene(stackPane, SCENE_WIDTH, SCENE_HEIGHT);
-    }
+        return new Scene(stackPane, SCENE_WIDTH, SCENE_HEIGHT);//return a scene of everything
+    }//end method
 
-    private Boolean validatePassword(String inputPassword) {
-        return inputPassword.equals(userPassword);
-    }
-}
+    //method to check password
+    private Boolean validatePassword(String inputPassword) {//start method
+        return inputPassword.equals(userPassword);//reutrn if its the same or not in true or false
+    }//end method
+}//end class
