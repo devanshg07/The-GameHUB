@@ -1,4 +1,5 @@
 /* Devansh Goyal
+ColoredBall.java
  * The purpose of the coloredball class is to add all neccessary constructors
  * and methods to the coloredball objects and use them in the main method. */
 

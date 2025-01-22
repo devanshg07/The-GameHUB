@@ -7,6 +7,8 @@ import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
@@ -40,12 +42,25 @@ public class FlappyBall extends Application {
     Timeline gameLoop;
     Timeline placePipeTimer;
 
+    // ImageView to display the game over image
+    Image gameOverImage;
+    ImageView gameOverImageView;
+
+    SoundManager SoundManager = new SoundManager();
+
     @Override
     public void start(Stage primaryStage) {
         Canvas canvas = new Canvas(SCENE_WIDTH, SCENE_HEIGHT);
         GraphicsContext gc = canvas.getGraphicsContext2D();
 
         pipes = new ArrayList<>();
+
+        // Load the "sigma.jpeg" image
+        gameOverImage = new Image("file:sigma.jpeg");
+        gameOverImageView = new ImageView(gameOverImage);
+        gameOverImageView.setFitWidth(SCENE_WIDTH);
+        gameOverImageView.setFitHeight(SCENE_HEIGHT);
+        gameOverImageView.setVisible(false); // Initially hidden
 
         gameLoop = new Timeline(new KeyFrame(Duration.seconds(1.0 / 60), e -> {
             move();
@@ -68,7 +83,7 @@ public class FlappyBall extends Application {
 
         // StackPane for layering the canvas and buttons
         StackPane root = new StackPane();
-        root.getChildren().addAll(canvas, exitButton);
+        root.getChildren().addAll(canvas, exitButton, gameOverImageView);
 
         Scene scene = new Scene(root, SCENE_WIDTH, SCENE_HEIGHT);
 
@@ -91,6 +106,7 @@ public class FlappyBall extends Application {
         pipes.clear();
         score = 0;
         gameOver = false;
+        gameOverImageView.setVisible(false); // Hide image when restarting
     }
 
     public void move() {
@@ -114,6 +130,7 @@ public class FlappyBall extends Application {
 
             if (collision(pipe)) {
                 gameOver = true;
+                gameOverImageView.setVisible(true); // Show image on game over
             }
         }
     }

@@ -1,4 +1,5 @@
 /* Devansh Goyal
+BlueBall.java
  * The purpose of the BlueBall class is to add all neccessarry constructers and methods
  * for the blueball objects and use them in the main method. */
 import javafx.scene.shape.Circle;//import javafx circles

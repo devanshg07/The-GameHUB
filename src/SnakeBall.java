@@ -3,6 +3,8 @@ import javafx.animation.Timeline;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
@@ -35,6 +37,12 @@ public class SnakeBall extends Application {
     private int score = 0;
     private Text scoreText;
 
+    // ImageView for the "sigma.jpeg" image
+    private Image gameOverImage;
+    private ImageView gameOverImageView;
+
+    SoundManager SoundManager = new SoundManager();
+
     @Override
     public void start(Stage primaryStage) {
         Pane root = new Pane();
@@ -47,6 +55,14 @@ public class SnakeBall extends Application {
         exitButton.setLayoutY(SCENE_HEIGHT + 5);
         exitButton.setOnAction(e -> primaryStage.close());
         root.getChildren().add(exitButton);
+
+        // Load the "sigma.jpeg" image
+        gameOverImage = new Image("file:sigma.jpeg"); // Adjust the path if necessary
+        gameOverImageView = new ImageView(gameOverImage);
+        gameOverImageView.setFitWidth(SCENE_WIDTH);
+        gameOverImageView.setFitHeight(SCENE_HEIGHT);
+        gameOverImageView.setVisible(false); // Initially hidden
+        root.getChildren().add(gameOverImageView);
 
         // Initialize the snake head
         Rectangle head = new Rectangle(TILE_SIZE, TILE_SIZE);
@@ -130,6 +146,8 @@ public class SnakeBall extends Application {
         // Check for collisions with walls or self
         if (checkCollision(newX, newY)) {
             running = false;
+            SoundManager.playFailureSound();
+            gameOverImageView.setVisible(true); // Show the game over image
             return;
         }
 
