@@ -49,10 +49,10 @@ public class BallPong extends Application {
         // Add components to the root
         root.getChildren().addAll(leftPaddle, rightPaddle, ball);
 
-        // Scoreboard with larger and bolder font
-        Text scoreText = new Text(SCENE_WIDTH - 100, 30, "0 - 0");
+        // Scoreboard with larger font, Times New Roman, and slightly moved to the left
+        Text scoreText = new Text(SCENE_WIDTH - 140, 30, "0 - 0"); // Moved score slightly to the left
         scoreText.setFill(Color.WHITE);
-        scoreText.setStyle("-fx-font-size: 36px; -fx-font-weight: bold;"); // Larger and bolder score
+        scoreText.setStyle("-fx-font-family: 'Times New Roman'; -fx-font-size: 32px; -fx-font-weight: bold;"); // Times New Roman, 32px
         root.getChildren().add(scoreText);
 
         // Ball and paddle movement logic

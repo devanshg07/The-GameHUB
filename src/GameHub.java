@@ -13,9 +13,9 @@ public class GameHub {
     final int SCENE_HEIGHT = 400;
 
     public Scene createGameHubScene(Stage primaryStage) {
-        // Title Label
+        // Title Label with Times New Roman 32px font
         Label titleLabel = new Label("Welcome to GameHub!");
-        titleLabel.setStyle("-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: black;");
+        titleLabel.setStyle("-fx-font-family: 'Times New Roman'; -fx-font-size: 32px; -fx-font-weight: bold; -fx-text-fill: black;");
         titleLabel.setAlignment(Pos.TOP_CENTER);
 
         // Buttons

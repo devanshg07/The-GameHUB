@@ -7,7 +7,6 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
-import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -40,20 +39,7 @@ public class SnakeBall extends Application {
     public void start(Stage primaryStage) {
         Pane root = new Pane();
         root.setPrefSize(SCENE_WIDTH, SCENE_HEIGHT + 40); // Adjusted for the score panel
-        root.setStyle("-fx-background-color: #FFD700; -fx-font-size: 16px;");
-
-        // Draw grid
-        for (int i = 0; i <= WIDTH; i++) {
-            Line verticalLine = new Line(i * TILE_SIZE, 0, i * TILE_SIZE, SCENE_HEIGHT);
-            verticalLine.setStroke(Color.rgb(200, 200, 200, 0.1));
-            root.getChildren().add(verticalLine);
-        }
-
-        for (int i = 0; i <= HEIGHT; i++) {
-            Line horizontalLine = new Line(0, i * TILE_SIZE, SCENE_WIDTH, i * TILE_SIZE);
-            horizontalLine.setStroke(Color.rgb(200, 200, 200, 0.1));
-            root.getChildren().add(horizontalLine);
-        }
+        root.setStyle("-fx-background-color: #FFD700;");
 
         // Add exit button
         Button exitButton = new Button("Exit");
@@ -81,18 +67,17 @@ public class SnakeBall extends Application {
         timeline.setCycleCount(Timeline.INDEFINITE);
         timeline.play();
 
-        // Add score counter in top-right corner (at the end so it overlaps other items)
+        // Add score counter
         scoreText = new Text("Score: 0");
         scoreText.setFill(Color.BLACK);
-        scoreText.setStyle("-fx-font-size: 30px;");  // Increased font size
-        scoreText.setX(SCENE_WIDTH - 150);  // Adjusted position for bigger text
-        scoreText.setY(40);  // Place it near the top of the window
+        scoreText.setStyle("-fx-font-family: 'Times New Roman'; -fx-font-size: 32px;"); // Updated font and size
+        scoreText.setX(SCENE_WIDTH - 150);
+        scoreText.setY(40);
         root.getChildren().add(scoreText);
 
         Scene scene = new Scene(root);
         scene.setOnKeyPressed(event -> {
             KeyCode code = event.getCode();
-            // WASD or Arrow key controls
             if (code == KeyCode.W && direction != Direction.DOWN) {
                 direction = Direction.UP;
             } else if (code == KeyCode.S && direction != Direction.UP) {
@@ -102,16 +87,7 @@ public class SnakeBall extends Application {
             } else if (code == KeyCode.D && direction != Direction.LEFT) {
                 direction = Direction.RIGHT;
             }
-            // Arrow keys control
-            else if (code == KeyCode.UP && direction != Direction.DOWN) {
-                direction = Direction.UP;
-            } else if (code == KeyCode.DOWN && direction != Direction.UP) {
-                direction = Direction.DOWN;
-            } else if (code == KeyCode.LEFT && direction != Direction.RIGHT) {
-                direction = Direction.LEFT;
-            } else if (code == KeyCode.RIGHT && direction != Direction.LEFT) {
-                direction = Direction.RIGHT;
-            }
+
             if (!running) {
                 running = true;
             }
@@ -128,7 +104,6 @@ public class SnakeBall extends Application {
             return;
         }
 
-        // Move the snake
         Rectangle head = snake.getFirst();
         double newX = head.getX();
         double newY = head.getY();
@@ -153,7 +128,6 @@ public class SnakeBall extends Application {
             return;
         }
 
-        // Add new head
         Rectangle newHead = new Rectangle(TILE_SIZE, TILE_SIZE);
         newHead.setFill(Color.BLUE);
         newHead.setX(newX);
@@ -161,13 +135,11 @@ public class SnakeBall extends Application {
         snake.addFirst(newHead);
         root.getChildren().add(newHead);
 
-        // Check if apple is eaten
-        if (newX == apple.getCenterX() - TILE_SIZE / 2.0 && newY == apple.getCenterY() - TILE_SIZE / 2.0) {
+        if (newX == apple.getCenterX() - TILE_SIZE / 2 && newY == apple.getCenterY() - TILE_SIZE / 2) {
             score++;
             scoreText.setText("Score: " + score);
             placeApple(root);
         } else {
-            // Remove tail
             Rectangle tail = snake.removeLast();
             root.getChildren().remove(tail);
         }
@@ -194,12 +166,10 @@ public class SnakeBall extends Application {
     }
 
     private boolean checkCollision(double x, double y) {
-        // Check wall collision
-        if (x < 0 || x + TILE_SIZE > SCENE_WIDTH || y < 0 || y + TILE_SIZE > SCENE_HEIGHT) {
+        if (x < 0 || x >= SCENE_WIDTH || y < 0 || y >= SCENE_HEIGHT) {
             return true;
         }
 
-        // Check self-collision
         for (Rectangle part : snake) {
             if (part.getX() == x && part.getY() == y) {
                 return true;
