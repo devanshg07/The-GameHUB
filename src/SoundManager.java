@@ -54,6 +54,7 @@ class SoundManager {
             backgroundMusicClip.close();
         }
     }
+
     // Play a one-time sound
     private void playSound(String fileName) {
         try {

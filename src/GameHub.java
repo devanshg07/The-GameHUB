@@ -11,8 +11,13 @@ public class GameHub {
 
     final int SCENE_WIDTH = 500;
     final int SCENE_HEIGHT = 400;
+    
+    private SoundManager soundManager = new SoundManager(); // Create an instance of SoundManager
 
     public Scene createGameHubScene(Stage primaryStage) {
+        // Play background music when the scene is created
+        soundManager.playBackgroundMusic("venture.wav");
+
         // Title Label with Times New Roman 32px font
         Label titleLabel = new Label("Welcome to GameHub!");
         titleLabel.setStyle("-fx-font-family: 'Times New Roman'; -fx-font-size: 32px; -fx-font-weight: bold; -fx-text-fill: black;");
