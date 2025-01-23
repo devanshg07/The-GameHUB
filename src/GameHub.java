@@ -95,9 +95,9 @@ public class GameHub {//start class
 
         //snakeball action button
         snakeBallButton.setOnAction(e -> {//start
-            SnakeBall game = new SnakeBall(); // New SnakeBall object
-            game.start(new Stage()); // New stage
-            primaryStage.hide(); // Hide
+            SnakeBall game = new SnakeBall();//create snakeball obj
+            game.start(new Stage());//add a new stage
+            primaryStage.hide(); //hide it from user
         });//end it
 
         return new Scene(stackPane, SCENE_WIDTH, SCENE_HEIGHT);//return the scene using this info
