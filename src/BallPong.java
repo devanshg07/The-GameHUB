@@ -156,7 +156,7 @@ public class BallPong extends Application {
         gameLoop.start();
 
         // Set the scene and display the stage
-        primaryStage.setTitle("Pong Game");
+        primaryStage.setTitle("BallPong");
         primaryStage.setScene(scene);
         primaryStage.setResizable(false); // Disable resizing
         primaryStage.show();
