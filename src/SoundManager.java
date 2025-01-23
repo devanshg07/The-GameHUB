@@ -1,75 +1,73 @@
+/*Devansh Goyal
+ * SoundManager.java
+ * This is the class where all of the soundmanagement is coded*/
+
 import javax.sound.sampled.*; // Import sound
 import java.io.File; // Import file reading
 
 class SoundManager {
 
-    private Clip backgroundMusicClip; // For background music
+    private Clip backgroundMusicClip;//variable for the wav file
 
-    // Play a subtle tap sound
-    public void makeNoise() {
-        playSound("balloon-bop-medium-228519.wav");
-    }
+    //method to create a sound similar to a tap
+    public void makeNoise() {//start method
+        playSound("balloon-bop-medium-228519.wav");//use method with this file
+    }//end method
 
-    // Play bounce sound (Placeholder for now)
-    public void playBounceSound() {
-        System.out.println("Bounce sound played");
-    }
+    //method to play a laughing sound
+    public void playSuccessSound() {//stat method
+        playSound("heheheha.wav");//use method with this file
+    }//end method
 
-    // Play a laughing sound
-    public void playSuccessSound() {
-        playSound("heheheha.wav");
-    }
+    //method to play wwomp womp 
+    public void playFailureSound() {//start method
+        playSound("downer_noise.wav");//use method with that file
+    }//end method
 
-    // Play a sad sound
-    public void playFailureSound() {
-        playSound("downer_noise.wav");
-    }
+    //method to play background music in a loop
+    public void playBackgroundMusic(String fileName) {//start method
+        //use try catch to handle exceptions
+        try {//start try
+            //load file
+            File file = new File(fileName);//file object
+            AudioInputStream audioStream = AudioSystem.getAudioInputStream(file);//use audiostream
+            backgroundMusicClip = AudioSystem.getClip();//get clip from audiosteam
+            backgroundMusicClip.open(audioStream);//open the variable
+            backgroundMusicClip.loop(Clip.LOOP_CONTINUOUSLY);//play it conitinously
+            backgroundMusicClip.start();//stART IT
+        }//end try
+         catch (Exception e) {//start catch
+            System.out.println( e.getMessage());//show problem
+        }//end catcg
+    }//end method
 
-    // Play background music in a loop
-    public void playBackgroundMusic(String fileName) {
-        try {
-            // Load the background music file
-            File file = new File(fileName);
-            AudioInputStream audioStream = AudioSystem.getAudioInputStream(file);
-            backgroundMusicClip = AudioSystem.getClip();
-            backgroundMusicClip.open(audioStream);
-            backgroundMusicClip.loop(Clip.LOOP_CONTINUOUSLY); // Loop the background music
-            backgroundMusicClip.start();
-        } catch (Exception e) {
-            System.out.println("Error playing background music: " + e.getMessage());
-        }
-    }
+    //method to stop the music
+    public void stopMusic() {//start method
+        //if the msuic isnt nukll, and runnign
+        if (backgroundMusicClip != null && backgroundMusicClip.isRunning()) {//start if
+            backgroundMusicClip.stop();//stop music
+            backgroundMusicClip.close();//close clip
+        }//end if
+    }//end method
 
-    // Stop the background music
-    public void stopMusic() {
-        if (backgroundMusicClip != null && backgroundMusicClip.isRunning()) {
-            backgroundMusicClip.stop();  // Stop the music
-            backgroundMusicClip.close(); // Close the clip
-        }
-    }
-
-    public void stopAllSounds() {
-        if (backgroundMusicClip != null && backgroundMusicClip.isRunning()) {
-            backgroundMusicClip.stop();
-            backgroundMusicClip.close();
-        }
-    }
-
-    // Play a one-time sound
-    private void playSound(String fileName) {
-        try {
-            File file = new File(fileName);
-            AudioInputStream audioStream = AudioSystem.getAudioInputStream(file);
-            Clip clip = AudioSystem.getClip();
-            clip.open(audioStream);
-            clip.start();
+    //play a sound once method
+    private void playSound(String fileName) {//start method
+        //try catch to handle exception
+        try {//start try
+            File file = new File(fileName);//use file
+            AudioInputStream audioStream = AudioSystem.getAudioInputStream(file);//get audiostream of the file
+            Clip clip = AudioSystem.getClip();//convert to a clip
+            clip.open(audioStream);//open sound
+            clip.start();//start sound
             clip.addLineListener(event -> {
-                if (event.getType() == LineEvent.Type.STOP) {
-                    clip.close(); // Close clip once the sound finishes
-                }
+                //if music is done close it
+                if (event.getType() == LineEvent.Type.STOP) {//start if
+                    clip.close();//close
+                }//end if
             });
-        } catch (Exception e) {
-            System.out.println("Error playing sound: " + e.getMessage());
-        }
-    }
-}
+        }//end try
+        catch (Exception e) {//start catch
+            System.out.println(e.getMessage());//show error
+        }//end catch
+    }//end method
+}//end class
