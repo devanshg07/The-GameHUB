@@ -3,6 +3,7 @@
  * This is the class where the user is directed upon login, and is given access to 4 different buttons of games*/
 
 //import javafx libraries 
+import javafx.application.Application;
 import javafx.geometry.Insets;//import insets
 import javafx.geometry.Pos;//import positions
 import javafx.scene.Scene;//import scenes
@@ -94,9 +95,9 @@ public class GameHub {//start class
 
         //snakeball action button
         snakeBallButton.setOnAction(e -> {//start
-            SnakeBall game = new SnakeBall(); // new snakeball obj
-            game.start(new Stage()); // new stage
-            primaryStage.hide(); //hide
+            SnakeBall game = new SnakeBall(); // New SnakeBall object
+            game.start(new Stage()); // New stage
+            primaryStage.hide(); // Hide
         });//end it
 
         return new Scene(stackPane, SCENE_WIDTH, SCENE_HEIGHT);//return the scene using this info

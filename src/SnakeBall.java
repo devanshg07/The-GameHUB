@@ -62,14 +62,6 @@ public class SnakeBall extends Application {//start class
         exitButton.setOnAction(e -> primaryStage.close());//once clicked, simply terminate the program
         root.getChildren().add(exitButton);//add to main interface
 
-        //load the funny image
-        gameOverImage = new Image("sigma.jpeg");//load image
-        gameOverImageView = new ImageView(gameOverImage);//view the image
-        gameOverImageView.setFitWidth(SCENE_WIDTH);//fit width to image
-        gameOverImageView.setFitHeight(SCENE_HEIGHT);//fit hiehgt to image
-        gameOverImageView.setVisible(false);//hide it for now
-        root.getChildren().add(gameOverImageView);//add it 
-
         //create a snake head
         Rectangle head = new Rectangle(TILE_SIZE, TILE_SIZE);
         head.setFill(Color.BLUE);//create blue snake
@@ -163,7 +155,6 @@ public class SnakeBall extends Application {//start class
         if (checkCollision(newX, newY)) {//start if
             running = false;//dont make it move
             SoundManager.playFailureSound();//play funny sound
-            gameOverImageView.setVisible(true);//show the funny image
             return;
         }//end if
 
