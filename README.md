@@ -1,18 +1,6 @@
 ## Getting Started
 
-Welcome to the VS Code Java world. Here is a guideline to help you get started to write Java code in Visual Studio Code.
+Hey! What's up? Welcome to my latest project called The GameHUB. Ever feel bored, and not have anybody to talk to, well The GameHub is the cure of boredom. The user is initally directed to a login screen, where they enter a username of their choice, and then the secret, or not so secret password of "12345". Upon successful login, the user is directed to a directoru fo four gaming buttons, being SnakeBall, FlappyBall, CatchyBalls and BallPong. Upon clicking a button, one game is executed and the user can play a game. If your computer contains JavaFX, feel free to download this repository and execute it. Enjoy! 
 
 ## Folder Structure
-
-The workspace contains two folders by default, where:
-
-- `src`: the folder to maintain sources
-- `lib`: the folder to maintain dependencies
-
-Meanwhile, the compiled output files will be generated in the `bin` folder by default.
-
-> If you want to customize the folder structure, open `.vscode/settings.json` and update the related settings there.
-
-## Dependency Management
-
-The `JAVA PROJECTS` view allows you to manage your dependencies. More details can be found [here](https://github.com/microsoft/vscode-java-dependency#manage-dependencies).
+- `src`: the folder to contains all the code
