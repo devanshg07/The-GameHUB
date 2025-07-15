@@ -1,6 +1,8 @@
-/* Devansh Goyal
-CatchyBalls.java
- * The purpose of this class is to run all of the visual interface in catchy balls game, activated by the button of CatchyBalls */
+/*
+ * CatchyBalls.java
+ *
+ * Implements the Catchy Balls minigame for the GameHub application. Handles the visual interface and game logic for this mode.
+ */
 
 //import all libraries for the visual interface
  import javafx.animation.KeyFrame;//import keyframe

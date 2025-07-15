@@ -1,11 +1,12 @@
-/* Devansh Goyal
-ColoredBall.java
- * The purpose of the coloredball class is to add all neccessary constructors
- * and methods to the coloredball objects and use them in the main method. */
+/*
+ * ColoredBall.java
+ *
+ * Represents a colored ball in the GameHub application. Implements constructors and methods specific to colored balls.
+ */
 
- import javafx.scene.shape.Circle;//import the shape of a circle for the objects
+import javafx.scene.shape.Circle;//import the shape of a circle for the objects
 
- public class ColoredBall extends Balls {
+public class ColoredBall extends Balls {
  
      //constructor for coloredball objects using same variables as the Ball objects
      public ColoredBall(double x, double y, double dx, double dy, Circle circle) {

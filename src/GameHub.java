@@ -1,6 +1,8 @@
-/*Devansh Goyal
+/*
  * GameHub.java
- * This is the class where the user is directed upon login, and is given access to 4 different buttons of games*/
+ *
+ * Main hub class for the GameHub application. Directs users to different minigames after login and manages navigation.
+ */
 
 //import javafx libraries 
 import javafx.application.Application;

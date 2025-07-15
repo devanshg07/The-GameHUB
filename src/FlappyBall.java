@@ -1,6 +1,8 @@
-/*Devansh Goyal
+/*
  * FlappyBall.java
- * This is the class where the flappyball game user is coded*/
+ *
+ * Implements the Flappy Ball minigame for the GameHub application. Manages game logic, rendering, and user input for this mode.
+ */
 
  //import javafx libraries
 import javafx.animation.KeyFrame;//import keyframe

@@ -1,6 +1,8 @@
-/*Devansh Goyal
+/*
  * SnakeBall.java
- * This is the class where the snakeball game user is coded*/
+ *
+ * Implements the Snake Ball minigame for the GameHub application. Manages game logic, rendering, and user input for this mode.
+ */
 
  //import javafx libraries
 import javafx.animation.KeyFrame;//import keyframe

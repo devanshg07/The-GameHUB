@@ -1,6 +1,8 @@
-/*Devansh Goyal
+/*
  * BallPong.java
- * The porupose of tjhis class is to code everything for the pong game*/
+ *
+ * This class implements the Pong game for the GameHub application. It manages the game logic, rendering, and user interaction for the Pong minigame.
+ */
 
  //import all javafx libraries
 import javafx.animation.AnimationTimer;//import animation timer

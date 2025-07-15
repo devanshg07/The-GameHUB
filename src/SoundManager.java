@@ -1,6 +1,8 @@
-/*Devansh Goyal
+/*
  * SoundManager.java
- * This is the class where all of the soundmanagement is coded*/
+ *
+ * Manages sound effects and audio playback for the GameHub application.
+ */
 
 import javax.sound.sampled.*; // Import sound
 import java.io.File; // Import file reading

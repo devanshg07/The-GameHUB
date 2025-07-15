@@ -1,7 +1,8 @@
-/*Devansh Goyal
-Balls.java
- The purpose of the Balls class is to provide the two ball subclasses
-  with the necessary constructors for creating a object*/
+/*
+ * Balls.java
+ *
+ * Abstract base class for ball objects in the GameHub application. Provides shared properties and methods for ball subclasses.
+ */
 
   import javafx.scene.shape.Circle;//import the circle library, making it possible to create circles
 

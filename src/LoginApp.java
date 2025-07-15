@@ -1,6 +1,8 @@
-/*Devansh Goyal
+/*
  * LoginApp.java
- * This is the maain class of the gamehub project, and directs the user to be logged in to play videogames! */
+ *
+ * Main entry point for the GameHub application. Handles user authentication and login flow.
+ */
 
  //import javafx libraries
 import javafx.application.Application;//import application libarires

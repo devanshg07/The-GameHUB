@@ -1,6 +1,8 @@
-/*Devansh Goyal
+/*
  * Rectangle.java
- * The porupose of tjhis class is to handle al constructprs and methods for pipes in flappyball*/
+ *
+ * Represents a rectangle (used as pipes) in the Flappy Ball minigame. Handles constructors and methods for pipe behavior.
+ */
 
 public class Rectangle {//strat class
     int x, y, width, height;//isntance variables

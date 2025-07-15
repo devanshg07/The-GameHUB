@@ -1,7 +1,8 @@
-/* Devansh Goyal
-BlueBall.java
- * The purpose of the BlueBall class is to add all neccessarry constructers and methods
- * for the blueball objects and use them in the main method. */
+/*
+ * BlueBall.java
+ *
+ * Represents a blue ball in the GameHub application. Implements specific constructors and methods for blue ball behavior.
+ */
 import javafx.scene.shape.Circle;//import javafx circles
 
 public class BlueBall extends Balls {
